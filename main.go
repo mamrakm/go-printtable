@@ -21,6 +21,7 @@ type Users struct {
 func getUsersList() []Users {
 	users := make([]Users, 32)
 	pwd, err := os.Open("/etc/passwd")
+	defer pwd.Close()
 	if err != nil {
 		log.Println("Unable to open /etc/passwd: ", err)
 	}
