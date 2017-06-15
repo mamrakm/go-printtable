@@ -10,10 +10,6 @@ import (
 	"strings"
 )
 
-var arr = []string{
-	"George", "Michael", "Robert", "Dennis", "Ian",
-}
-
 //Users struct contains data about users from /etc/passwd
 type Users struct {
 	uid     int
