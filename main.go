@@ -64,35 +64,29 @@ func printUsers(s []users) string {
 	var strbuff string
 	ret := bytes.NewBufferString(strbuff)
 	maxLengths := [4]int{0, 0, 0, 0}
-	for _, user := range s {
-		u := []string{
+	u := make([][4]string, len(s))
+	for i, user := range s {
+		u[i] = [4]string{
 			strconv.Itoa(user.uid),
 			strconv.Itoa(user.gid),
 			user.name,
 			user.homedir,
 		}
-		for i := range [4]int{0, 1, 2, 3} {
-			if len(u[i]) > maxLengths[i] {
-				maxLengths[i] = len(u[i])
+		for j := range [...]int{0, 1, 2, 3} {
+			if len(u[i][j]) > maxLengths[j] {
+				maxLengths[j] = len(u[i][j])
 			}
 		}
 	}
 	sumLengths := maxLengths[0] + maxLengths[1] + maxLengths[2] + maxLengths[3]
 	printLineSeparator(ret, sumLengths+3)
-	for _, user := range s {
-		if user.name == "" {
+	for i := range u {
+		if u[i][2] == "" {
 			continue
 		}
-		u := []string{
-			strconv.Itoa(user.uid),
-			strconv.Itoa(user.gid),
-			user.name,
-			user.homedir,
-		}
-
 		ret.WriteString("|")
-		for i, line := range u {
-			pad := strings.Repeat(" ", maxLengths[i]-len(line))
+		for j, line := range u[i] {
+			pad := strings.Repeat(" ", maxLengths[j]-len(line))
 			ret.WriteString(line + pad + "|")
 		}
 		ret.WriteString("\n")
