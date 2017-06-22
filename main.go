@@ -104,9 +104,7 @@ func printUsers(s []users) string {
 
 func printLineSeparator(buff *bytes.Buffer, i int) string {
 	buff.WriteString("+")
-	for l := 0; l < i; l++ {
-		buff.WriteString("-")
-	}
+	buff.WriteString(strings.Repeat("-", i))
 	buff.WriteString("+")
 	buff.WriteString("\n")
 	return buff.String()
