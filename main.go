@@ -80,6 +80,13 @@ func printUsers(s []users) string {
 	}
 	sumLengths := maxLengths[0] + maxLengths[1] + maxLengths[2] + maxLengths[3]
 	printLineSeparator(ret, sumLengths+3)
+	ret.WriteString("|")
+	for j, line := range [...]string{"UID", "GID", "User", "Homedir"} {
+		pad := strings.Repeat(" ", maxLengths[j]-len(line))
+		ret.WriteString(line + pad + "|")
+	}
+	ret.WriteString("\n")
+	printLineSeparator(ret, sumLengths+3)
 	for i := range u {
 		if u[i][2] == "" {
 			continue
